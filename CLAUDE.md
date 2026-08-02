@@ -152,6 +152,51 @@ means building legibly is part of building well.
 You don't need a name, a student number, or any identity file in the repo: we
 know whose repo it is. Spend the effort on the work.
 
+## Rules for this prototype (C1 — Forgotten web)
+
+- **No JavaScript ships.** The C1 spec says plain HTML and CSS. `main.ts` and
+  its `<script>` tag are deleted; do not re-add them, and do not reach for a
+  script to solve a layout or interaction problem. If something needs to move,
+  it moves in CSS. `spec/crit-1.test.ts` fails the build if a `<script>`, an
+  inline `on*` handler, or any `.js` file reaches `dist/`.
+- **Period-correct beats convenient.** Where 1996 would have used a server-side
+  CGI script (hit counter, guestbook form), ship the static artefact and say so
+  in the copy. A fake interactive widget is worse than an honest static one.
+- **Anything that animates must stop.** Every animation has a
+  `prefers-reduced-motion: reduce` branch that disables it and leaves the
+  content readable. The marquee in particular must not hide its text when the
+  animation is off — check the `padding-left` reset.
+- **One `h1` per page.** The masthead's big site name is an `<h1>` on the home
+  page only; every other page uses `<p class="sitename">` there and puts its own
+  `<h1>` in `<main>`. The invariants enforce exactly one.
+
+## Facts about this stack that kept biting
+
+Each of these cost a red check or a wrong conclusion once. Read them before
+debugging the same thing again.
+
+- **Vite adds `crossorigin` to the built stylesheet link.** So opening
+  `dist/index.html` over `file://` renders the page completely unstyled — the
+  CSS is blocked by CORS, not broken. Always preview the built site over HTTP
+  (`pnpm preview`, or `python3 -m http.server` inside `dist/`). An unstyled
+  `file://` screenshot is a false alarm; a styled HTTP one is the truth.
+- **Headless Chrome on macOS will not give you a viewport narrower than
+  ~500px.** `--window-size=390,N` produces a 390px-wide *image* of a ~500px-wide
+  *layout*, cropped — which looks exactly like horizontal overflow and is not.
+  To check the 390×844 marking viewport for real, load the page in a
+  `<iframe width="390">` inside a harness page and screenshot that; an iframe
+  gets its own CSS viewport, so media queries evaluate correctly. Verify the
+  harness itself with a media-query probe page before trusting a phone
+  screenshot.
+- **stylelint's `no-descending-specificity` dictates rule order,** and it is
+  not negotiable by adding a comment. Selectors matching the same element must
+  appear in ascending specificity. For links that means the order
+  `a` → `nav a` → `a:visited` → `nav a:hover`, which reads oddly and is correct.
+  When it complains, reorder; don't disable it.
+- **`pnpm check` is `&&`-chained,** so a stylelint error stops vitest from
+  running at all. A green test count after a lint failure is not a thing you
+  have seen — re-run after fixing the lint.
+
 ## This file is yours
 
 This CLAUDE.md is a starting point, not a fixed rulebook. As you learn what your
