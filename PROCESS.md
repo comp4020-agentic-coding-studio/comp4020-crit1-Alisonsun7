@@ -1,85 +1,69 @@
 # Process overview
 
-<!-- TEMPLATE: this file is a shape to fill in, not a form. Replace everything
-     in it with your own overview, and delete this comment — `pnpm
-     check:evidence` will remind you if it's still here. -->
-
-A reading-guide to how the work came together --- a map to your process, not an
-essay about it. Markers read this file and follow its citations; they don't
-trawl the repo for evidence you didn't point at, so if a moment mattered, cite
-it.
-
-This file is the shape; the course site's
-[assessment page](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/topics/assessment/#what-you-submit)
-is the requirement, and its
-[word counts](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/topics/assessment/#word-counts)
-cover every deliverable.
+<!-- DRAFT — the facts below are an accurate record of how this week's work
+     happened, captured so they aren't lost. The prose still needs to become
+     yours, and every CITE-ME must be replaced with a real commit link once the
+     repo exists; `pnpm check:evidence` fails while they are placeholders. -->
 
 ## What I built
 
-One paragraph: the thing, and the idea behind it.
+**The Moth Room** — a six-page shrine to night-flying Lepidoptera, dressed as a
+1996 GeoCities personal homepage. Tiled starfield background, magenta and cyan
+ridge borders, a scrolling marquee, an under-construction barber-pole and a hit
+counter that counts nothing. Plain HTML and CSS, no JavaScript anywhere. The
+content is sincere and the styling is not ironic about it: the argument of the
+site is that this era of the web was warmer and more personal than what replaced
+it, so the pages had to be worth reading, not just worth looking at.
 
 ## The moments that mattered
 
-Three or four for an assignment; fewer is fine for a weekly prototype. Keep the
-list short so each moment has room to do all four jobs:
+### 1. The phone bug that wasn't
 
-1. **what happened** --- the problem, or the thing the agent got wrong
-2. **what you did instead of the obvious thing** --- the call you made, and why
-   it beat the obvious one
-3. **how you knew it was right** --- the check you ran, the viewport you looked
-   at, what you read before accepting the diff
-4. **the citation** --- a commit or commit range, a `CLAUDE.md` change, a check
-   that went from red to green, a prompt paired with the commit it produced
+The 390×844 screenshot showed the layout overflowing its viewport — text cut off
+mid-word, boxes running past the right edge. The obvious move was to start
+patching the stylesheet.
 
-Jobs 2 and 3 are the ones the repo can't tell a reader on its own, so they're
-where the marks are. The strongest moments are the ones where a correction
-landed in the **harness** rather than in another prompt --- a rule added to
-`CLAUDE.md`, a check wired up, an attempt thrown away: re-prompting until it
-passes is the routine case, and changing what the agent works against is the
-skilled one.
+Instead of trusting the image, I checked the instrument. I built a probe page
+whose only content is four media queries that reveal which width bucket the
+viewport is actually in, and screenshotted that: `width <= 34rem` matched but
+`width <= 400px` did not, so the layout viewport was somewhere near 500px, not
+390. Headless Chrome on macOS clamps window width and crops the screenshot —
+the site was fine and the measurement was wrong.
 
-Cite each moment as a link whose text is the commit hash or range and whose
-target is this repo's commit or compare URL, so a reader clicks straight to the
-evidence:
+The fix therefore went into how the site gets measured, not into the CSS: an
+iframe harness pinned to 390px, which gets its own CSS viewport. Re-shot through
+it, the phone layout is clean. Had I trusted the screenshot I would have added
+defensive `overflow-x` rules to fix a bug that did not exist.
 
-- one commit: [`a1b2c3d`](https://github.com/YOUR-ORG/YOUR-REPO/commit/a1b2c3d)
-- a range:
-  [`a1b2c3d...e4f5a6b`](https://github.com/YOUR-ORG/YOUR-REPO/compare/a1b2c3d...e4f5a6b)
+Cited: CITE-ME (the probe page and the harness), and the `CLAUDE.md` entry that
+records the clamp so I don't rediscover it in week 3.
 
-To pair a prompt with the commit it produced, quote the prompt (curated, not a
-full transcript) next to the citation:
+### 2. Making "no JavaScript" a check instead of an intention
 
-> the prompt, verbatim
+The spec's sharpest line is the one a build tool can violate behind your back:
+Vite is perfectly capable of emitting a JS bundle from a template that shipped
+`main.ts`. Deleting the file is not the same as guaranteeing the deployed bytes
+contain no script.
 
-Screenshots are welcome where one carries the verification better than a
-sentence does. Commit the file to this repo and link it with a **relative**
-path, which is what makes it render on GitHub: `![alt text](docs/before.png)`.
-Images don't count towards the word count and don't replace the citation.
+So `spec/crit-1.test.ts` asserts it against `dist/`, three ways: no `<script>`
+element on any page, no inline `on*` handler, and no `.js` file anywhere in the
+build output. That is the difference between remembering a constraint and
+holding one.
 
-### A worked moment, for shape
+Cited: CITE-ME (spec/crit-1.test.ts), and the red-to-green range as the site
+went from the empty template to six passing pages.
 
-Delete this section along with the rest of the boilerplate --- it's here to show
-the four jobs in one paragraph, not to be imitated in content.
+### 3. Corrections landing in the harness
 
-> The date formatter kept coming back with `toLocaleDateString()` and no locale
-> argument, so the same build rendered differently on my machine and in CI. I'd
-> already re-prompted it twice, which fixed the line but not the habit, so the
-> third time I put the rule in `CLAUDE.md` instead
-> ([`3f9ac21`](https://github.com/YOUR-ORG/YOUR-REPO/commit/3f9ac21)) and added
-> a spec test that fails on a bare `toLocaleDateString`. That's what told me it
-> had actually taken: the test went red against the old code and green against
-> the new, and the next two features it wrote passed it without prompting
-> ([`3f9ac21...b7e0d14`](https://github.com/YOUR-ORG/YOUR-REPO/compare/3f9ac21...b7e0d14)).
+Three things bit during the build: Vite's `crossorigin` attribute making the
+`file://` preview render unstyled, stylelint's `no-descending-specificity`
+dictating an odd but correct link-rule order, and the viewport clamp above.
+Each one got written into `CLAUDE.md` rather than re-explained in a prompt.
+
+Cited: CITE-ME (the "Facts about this stack that kept biting" section).
 
 ## Before you ship
 
-`pnpm check:evidence` verifies your citations resolve to real commits, that the
-current reflection entry is in `reflections/`, and that your `CLAUDE.md` is
-there --- before a marker ever opens the file. It checks that your map is
-traceable, not that it is good: the marker judges whether your small,
-deliberately chosen set of moments shows real judgement and reflection. A green
-check is not a substitute for that curation.
-
-Images are deliberately not checked, because whether one renders is visible the
-moment you look. Open this file on GitHub and look at it before you ship.
+<!-- Replace every CITE-ME above with a real commit or compare link, then run
+     `pnpm check:evidence`. It verifies the citations resolve, that
+     reflections/crit-1.md exists, and that CLAUDE.md is present. -->
