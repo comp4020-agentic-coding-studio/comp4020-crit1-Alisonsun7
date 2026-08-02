@@ -1,16 +1,372 @@
+/* THE MOTH ROOM — stylesheet
+ *
+ * Target era: the 1996 GeoCities personal homepage. The rules of that look,
+ * as best I can reconstruct them:
+ *   - a tiled background image, always; the page floats on top of it
+ *   - the content is CENTERED and boxed, because tables were the only layout
+ *   - saturated web-safe colours on black, borrowed from the 216-colour palette
+ *   - borders are ridge/outset, 3px+, and there are a lot of them
+ *   - the page tells you it is unfinished, and counts its visitors
+ *
+ * No JavaScript ships (C1 spec), so everything that moves is CSS, and
+ * everything that moves stops under prefers-reduced-motion.
+ */
+
+/* ---- the tiled background ------------------------------------------------
+ * A 1996 page tiled a small GIF. This is the same effect built from gradients
+ * so the repo ships no binary assets: a starfield on deep space blue.
+ */
 body {
   margin: 0;
-  padding: 2rem;
-  font-family: system-ui, sans-serif;
-  line-height: 1.6;
-  color: #1a1a1a;
+  padding: 1.5rem 0.75rem 3rem;
+  background-color: #000020;
+  background-image:
+    radial-gradient(circle at 12% 22%, #fff 0.5px, transparent 1.2px),
+    radial-gradient(circle at 68% 41%, #ff0 0.5px, transparent 1.2px),
+    radial-gradient(circle at 34% 78%, #fff 0.5px, transparent 1.2px),
+    radial-gradient(circle at 88% 88%, #0ff 0.5px, transparent 1.2px),
+    radial-gradient(circle at 51% 12%, #fff 0.5px, transparent 1.2px);
+  background-size: 90px 90px;
+  color: #0f0;
+  font-family: "Comic Sans MS", "Chalkboard SE", cursive, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
-main {
-  max-width: 40rem;
+/* ---- the boxed, centered page -------------------------------------------- */
+header,
+main,
+footer {
+  max-width: 46rem;
   margin: 0 auto;
+  text-align: center;
 }
 
+main,
+footer {
+  box-sizing: border-box;
+  margin-top: 1rem;
+  padding: 1.25rem 1.5rem;
+  border: 4px ridge #f0f;
+  background-color: #000;
+}
+
+/* ---- the masthead --------------------------------------------------------- */
+.masthead {
+  box-sizing: border-box;
+  padding: 1rem;
+  border: 5px outset #0ff;
+  background-color: #300030;
+}
+
+/* The site name gets the big treatment. On the home page that is the <h1>;
+ * on every other page the <h1> is the page's own title, so the masthead
+ * carries a styled <p> instead and the pages keep one h1 each.
+ *
+ * `main h1` is declared first purely to keep stylelint's
+ * no-descending-specificity happy: both rules match an h1, so the less
+ * specific one has to come first. */
+main h1 {
+  margin: 0 0 0.6em;
+  padding-bottom: 0.2em;
+  border-bottom: 4px double #ff0;
+  color: #ff0;
+  font-size: 1.7rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.masthead h1,
+.sitename {
+  margin: 0.2em 0;
+  color: #ff0;
+  font-size: 2.1rem;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  text-shadow: 3px 3px 0 #f0f, 6px 6px 0 #400040;
+  text-transform: uppercase;
+}
+
+.tagline {
+  margin: 0;
+  color: #0ff;
+  font-style: italic;
+}
+
+/* The moth, drawn in text. Decorative, so it carries its own label. */
+.moth-art {
+  margin: 0.5rem 0;
+  color: #f0f;
+  font-family: "Courier New", monospace;
+  font-size: 0.8rem;
+  line-height: 1.1;
+  white-space: pre;
+}
+
+/* ---- links ---------------------------------------------------------------
+ * Declared ahead of the nav rules below, which are more specific and would
+ * otherwise trip no-descending-specificity. */
 a {
-  color: #0b5fff;
+  color: #ff0;
+}
+
+/* ---- navigation ----------------------------------------------------------- */
+nav {
+  margin-top: 1rem;
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav a {
+  display: block;
+  padding: 0.25rem 0.7rem;
+  border: 3px outset #0f0;
+  background-color: #002000;
+  color: #0f0;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* Purple visited links, as the era demands. It sits here, mid-nav-block,
+ * because no-descending-specificity forces the order
+ * a (0,0,1) -> nav a (0,0,2) -> a:visited (0,1,0) -> nav a:hover (0,1,2).
+ * Nav links set their own colour above, so they are unaffected. */
+a:visited {
+  color: #f0f;
+}
+
+nav a:hover,
+nav a:focus {
+  border-style: inset;
+  background-color: #0f0;
+  color: #000;
+}
+
+/* ---- body copy ------------------------------------------------------------ */
+main {
+  text-align: left;
+}
+
+h2 {
+  margin-top: 1.6em;
+  border-bottom: 2px dashed #0ff;
+  color: #0ff;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+h3 {
+  margin-bottom: 0.2em;
+  color: #ff0;
+  font-size: 1.1rem;
+}
+
+hr {
+  height: 0;
+  margin: 1.5rem 0;
+  border: none;
+  border-top: 3px groove #f0f;
+}
+
+blockquote {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  border-left: 5px ridge #ff0;
+  background-color: #101000;
+  color: #ff0;
+  font-style: italic;
+}
+
+/* ---- the 1996 furniture --------------------------------------------------- */
+
+/* A period marquee, without the deprecated element or a line of script. */
+.marquee {
+  overflow: hidden;
+  margin: 1rem 0;
+  padding: 0.3rem 0;
+  border-top: 3px ridge #ff0;
+  border-bottom: 3px ridge #ff0;
+  background-color: #200000;
+  white-space: nowrap;
+}
+
+.marquee > span {
+  display: inline-block;
+  padding-left: 100%;
+  color: #ff0;
+  font-weight: bold;
+  animation: marquee-scroll 18s linear infinite;
+}
+
+@keyframes marquee-scroll {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.construction {
+  margin: 1rem 0;
+  padding: 0.4rem;
+  border: 3px outset #ff0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #ff0 0 12px,
+    #000 12px 24px
+  );
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+}
+
+.construction > span {
+  padding: 0.2rem 0.6rem;
+  background-color: #000;
+  color: #ff0;
+}
+
+.blink {
+  color: #f00;
+  font-weight: bold;
+  animation: blink-step 1.2s steps(1) infinite;
+}
+
+@keyframes blink-step {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* The hit counter. Server-side in 1996, so a static odometer is era-correct
+ * and needs no script. */
+.counter {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.counter dfn {
+  font-style: normal;
+}
+
+.counter b {
+  padding: 0.2rem 0.35rem;
+  border: 2px inset #666;
+  background-color: #000;
+  color: #0f0;
+  font-family: "Courier New", monospace;
+  font-size: 1.3rem;
+  letter-spacing: 0.25em;
+}
+
+/* ---- tables, the 1996 workhorse ------------------------------------------- */
+table {
+  width: 100%;
+  margin: 1rem 0;
+  border: 3px ridge #0ff;
+  border-collapse: collapse;
+}
+
+caption {
+  padding: 0.3rem;
+  color: #f0f;
+  font-weight: bold;
+}
+
+th,
+td {
+  padding: 0.4rem 0.6rem;
+  border: 2px groove #004040;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background-color: #002020;
+  color: #0ff;
+}
+
+/* ---- page footer ----------------------------------------------------------
+ * Ahead of `.entry footer` below, for the same specificity-ordering reason. */
+footer {
+  color: #0ff;
+  font-size: 0.85rem;
+}
+
+/* ---- guestbook ------------------------------------------------------------ */
+.entry {
+  margin: 1rem 0;
+  padding: 0.6rem 0.9rem;
+  border: 3px ridge #0f0;
+  background-color: #001000;
+}
+
+.entry footer {
+  max-width: none;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #0ff;
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+.webring {
+  margin: 1rem 0;
+  padding: 0.6rem;
+  border: 4px ridge #0f0;
+  background-color: #001000;
+}
+
+.badge {
+  display: inline-block;
+  margin: 0.2rem;
+  padding: 0.15rem 0.5rem;
+  border: 2px outset #999;
+  background-color: #000080;
+  color: #fff;
+  font-family: "Courier New", monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+/* ---- honour the reader's settings ----------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .marquee > span,
+  .blink {
+    animation: none;
+  }
+
+  .marquee > span {
+    padding-left: 0;
+  }
+}
+
+/* 1996 assumed 800x600. This did not. */
+@media (width <= 34rem) {
+  main h1 {
+    font-size: 1.3rem;
+  }
+
+  .masthead h1,
+  .sitename {
+    font-size: 1.5rem;
+    text-shadow: 2px 2px 0 #f0f;
+  }
+
+  main,
+  footer {
+    padding: 0.9rem;
+  }
+
+  .moth-art {
+    font-size: 0.6rem;
+  }
 }
