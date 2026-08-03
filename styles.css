@@ -1,4 +1,4 @@
-/* THE MOTH ROOM — stylesheet
+/* THE SABLE DEN — stylesheet
  *
  * Target era: the 1996 GeoCities personal homepage. The rules of that look,
  * as best I can reconstruct them:
@@ -93,8 +93,8 @@ main h1 {
   font-style: italic;
 }
 
-/* The moth, drawn in text. Decorative, so it carries its own label. */
-.moth-art {
+/* The sable, drawn in text. Decorative, so it carries its own label. */
+.creature-art {
   margin: 0.5rem 0;
   color: #f0f;
   font-family: "Courier New", monospace;
@@ -366,7 +366,7 @@ footer {
     padding: 0.9rem;
   }
 
-  .moth-art {
+  .creature-art {
     font-size: 0.6rem;
   }
 }
