@@ -1,19 +1,15 @@
 # Process overview
 
-<!-- DRAFT — the facts below are an accurate record of how this week's work
-     happened, captured so they aren't lost. The prose still needs to become
-     yours, and every CITE-ME must be replaced with a real commit link once the
-     repo exists; `pnpm check:evidence` fails while they are placeholders. -->
-
 ## What I built
 
-**The Moth Room** — a six-page shrine to night-flying Lepidoptera, dressed as a
-1996 GeoCities personal homepage. Tiled starfield background, magenta and cyan
-ridge borders, a scrolling marquee, an under-construction barber-pole and a hit
-counter that counts nothing. Plain HTML and CSS, no JavaScript anywhere. The
-content is sincere and the styling is not ironic about it: the argument of the
-site is that this era of the web was warmer and more personal than what replaced
-it, so the pages had to be worth reading, not just worth looking at.
+**The Sable Den** — a six-page shrine to *Martes zibellina*, the sable, dressed
+as a 1996 GeoCities personal homepage. Tiled starfield background, magenta and
+cyan ridge borders, a scrolling marquee, an under-construction barber-pole and a
+hit counter that counts nothing. Plain HTML and CSS, no JavaScript anywhere. The
+content is sincere and the styling is not ironic about it: the site is built by
+someone who will likely never see a living sable, out of other people's
+fieldwork, fur-trade history, and a running correspondence — so the pages had to
+be worth reading, not just worth looking at.
 
 ## The moments that mattered
 
@@ -35,8 +31,10 @@ iframe harness pinned to 390px, which gets its own CSS viewport. Re-shot through
 it, the phone layout is clean. Had I trusted the screenshot I would have added
 defensive `overflow-x` rules to fix a bug that did not exist.
 
-Cited: CITE-ME (the probe page and the harness), and the `CLAUDE.md` entry that
-records the clamp so I don't rediscover it in week 3.
+Cited: [`3b6c63d`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit1-Alisonsun7/commit/3b6c63d3cec8776c1dc2d895302266967b8f0654)
+— the `CLAUDE.md` entry that records the clamp so I don't rediscover it in
+week 3. The probe page itself was a throwaway local file used to verify the
+harness, not committed; this is the artefact that survives.
 
 ### 2. Making "no JavaScript" a check instead of an intention
 
@@ -50,8 +48,9 @@ element on any page, no inline `on*` handler, and no `.js` file anywhere in the
 build output. That is the difference between remembering a constraint and
 holding one.
 
-Cited: CITE-ME (spec/crit-1.test.ts), and the red-to-green range as the site
-went from the empty template to six passing pages.
+Cited: [`8a11e99...c4f87ad`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit1-Alisonsun7/compare/8a11e995a8ceb2aeba321e26ead889ed5e156437...c4f87ad45713404e88c79e49bd06d6ca24bceb39)
+— the red-to-green range: `spec/crit-1.test.ts` landing, then the site going
+from the empty template to six passing pages.
 
 ### 3. Corrections landing in the harness
 
@@ -60,10 +59,5 @@ Three things bit during the build: Vite's `crossorigin` attribute making the
 dictating an odd but correct link-rule order, and the viewport clamp above.
 Each one got written into `CLAUDE.md` rather than re-explained in a prompt.
 
-Cited: CITE-ME (the "Facts about this stack that kept biting" section).
-
-## Before you ship
-
-<!-- Replace every CITE-ME above with a real commit or compare link, then run
-     `pnpm check:evidence`. It verifies the citations resolve, that
-     reflections/crit-1.md exists, and that CLAUDE.md is present. -->
+Cited: [`3b6c63d`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit1-Alisonsun7/commit/3b6c63d3cec8776c1dc2d895302266967b8f0654)
+— the "Facts about this stack that kept biting" section.
