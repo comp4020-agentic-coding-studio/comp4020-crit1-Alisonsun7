@@ -2,14 +2,10 @@
 
 ## What I built
 
-**The Sable Den** — a six-page shrine to *Martes zibellina*, the sable, dressed
-as a 1996 GeoCities personal homepage. Tiled starfield background, magenta and
-cyan ridge borders, a scrolling marquee, an under-construction barber-pole and a
-hit counter that counts nothing. Plain HTML and CSS, no JavaScript anywhere. The
-content is sincere and the styling is not ironic about it: the site is built by
-someone who will likely never see a living sable, out of other people's
-fieldwork, fur-trade history, and a running correspondence — so the pages had to
-be worth reading, not just worth looking at.
+**The Sable Den** — The website is designed to resemble a personal GeoCities homepage from 1996. It features a tiled starfield background, magenta and cyan ridge borders, a scrolling marquee, and an under-construction sign with a barber-pole effect. The entire site is built with plain HTML and CSS, with no JavaScript used anywhere.
+
+The project does more than imitate the visual style of the early web. Its content and presentation are intentionally sincere rather than ironic. The site is imagined as being created by an enthusiast who will probably never see a living sable in person. Instead, the creator builds the website from other people's fieldwork, the history of the sable fur trade, and an ongoing correspondence. As a result, the site is not only a recreation of an old-fashioned web aesthetic, but also a believable and personal expression of genuine interest in the subject.
+
 
 ## The moments that mattered
 
