@@ -244,27 +244,6 @@ blockquote {
   }
 }
 
-/* The hit counter. Server-side in 1996, so a static odometer is era-correct
- * and needs no script. */
-.counter {
-  margin: 1rem 0;
-  text-align: center;
-}
-
-.counter dfn {
-  font-style: normal;
-}
-
-.counter b {
-  padding: 0.2rem 0.35rem;
-  border: 2px inset #666;
-  background-color: #000;
-  color: #0f0;
-  font-family: "Courier New", monospace;
-  font-size: 1.3rem;
-  letter-spacing: 0.25em;
-}
-
 /* ---- tables, the 1996 workhorse ------------------------------------------- */
 table {
   width: 100%;
